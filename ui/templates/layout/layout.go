@@ -10,9 +10,7 @@ import (
 )
 
 var (
-	Div = utils.AddClass(id, h.Div)
-	H1  = utils.AddClass(id, h.H1)
-	P   = utils.AddClass(id, h.P)
+	H1 = utils.AddClass(id, h.H1)
 )
 
 func Layout(children ...g.Node) g.Node {
@@ -24,6 +22,7 @@ func Layout(children ...g.Node) g.Node {
 		},
 		Body: []g.Node{
 			H1(g.Text("ma page de fou")),
+			g.Group(children),
 		},
 	})
 }

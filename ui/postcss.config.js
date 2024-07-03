@@ -9,6 +9,6 @@ module.exports = {
     require("postcss-nested"),
     require("postcss-simple-vars"),
     require("./postcss-add-class")({ addClass: process.env.PREFIX || "" }),
-    // require("postcss-minify"),
+    require("postcss-minify"),
   ],
 };

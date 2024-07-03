@@ -14,6 +14,7 @@ func main() {
 	todo.AddTodo("un autre truc")
 
 	e.GET("/", todos.GetTodos)
+	e.POST("/addtodo", todos.PostTodo)
 	e.GET("/style", static.HandleStyle)
 	e.GET("/htmx", static.HandleHtmx)
 

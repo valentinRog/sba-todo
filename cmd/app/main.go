@@ -11,6 +11,7 @@ func main() {
 
 	e.GET("/", todos.GetTodos)
 	e.GET("/style", static.HandleStyle)
+	e.GET("/htmx", static.HandleHtmx)
 
 	e.Logger.Fatal(e.Start(":80"))
 }

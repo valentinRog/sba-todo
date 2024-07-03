@@ -8,7 +8,6 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"strings"
 
 	"github.com/valentinRog/sba-todo/utils"
 )
@@ -27,6 +26,15 @@ func Generate() {
 	defer file.Close()
 	writer := bufio.NewWriter(file)
 
+	cmd := exec.Command("npx", "postcss", filepath.Join(uiPath, "style", "global", "style.css"))
+	cmd.Dir = uiPath
+	output, err := cmd.CombinedOutput()
+	fmt.Println(string(output))
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	writer.Write(output)
+
 	err = filepath.Walk(filepath.Join(uiPath, "templates"), func(path string, info fs.FileInfo, err error) error {
 		if !info.IsDir() && info.Name() == "style.css" {
 			idString := fmt.Sprintf("id-%d", idCount)
@@ -40,15 +48,6 @@ func Generate() {
 			cmd := exec.Command("npx", "postcss", path)
 			cmd.Env = append(os.Environ(), fmt.Sprintf("PREFIX=%s", idString))
 			fmt.Println(idString)
-			cmd.Dir = uiPath
-			output, err := cmd.CombinedOutput()
-			fmt.Println(string(output))
-			if err != nil {
-				log.Fatal(err.Error())
-			}
-			writer.Write(output)
-		} else if !info.IsDir() && strings.HasSuffix(info.Name(), ".css") {
-			cmd := exec.Command("npx", "postcss", path)
 			cmd.Dir = uiPath
 			output, err := cmd.CombinedOutput()
 			fmt.Println(string(output))

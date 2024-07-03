@@ -20,6 +20,7 @@ func Layout(children ...g.Node) g.Node {
 		Title: "ma page",
 		Head: []g.Node{
 			h.Link(h.Href("/style"), h.Rel("stylesheet")),
+			h.Script(h.Src("/htmx")),
 		},
 		Body: []g.Node{
 			H1(g.Text("ma page de fou")),

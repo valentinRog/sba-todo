@@ -4,7 +4,7 @@ import (
 	g "github.com/maragudk/gomponents"
 	c "github.com/maragudk/gomponents/components"
 	h "github.com/maragudk/gomponents/html"
-	"github.com/valentinRog/spa-todo/ui/utils"
+	"github.com/valentinRog/sba-todo/ui/utils"
 
 	_ "embed"
 )

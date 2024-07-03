@@ -3,12 +3,13 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"github.com/valentinRog/spa-todo/utils"
 	"io/fs"
 	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
+
+	"github.com/valentinRog/sba-todo/utils"
 )
 
 var projectRoot = filepath.Join(utils.GetCurrentDirectory(), "..", "..")

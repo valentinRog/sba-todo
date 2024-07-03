@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/labstack/echo/v4"
-	"github.com/valentinRog/spa-todo/handler/static"
-	"github.com/valentinRog/spa-todo/handler/todos"
+	"github.com/valentinRog/sba-todo/handler/static"
+	"github.com/valentinRog/sba-todo/handler/todos"
 )
 
 func main() {

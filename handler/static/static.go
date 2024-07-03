@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v4"
-	"github.com/valentinRog/spa-todo/ui"
+	"github.com/valentinRog/sba-todo/ui"
 )
 
 func HandleStyle(c echo.Context) error {

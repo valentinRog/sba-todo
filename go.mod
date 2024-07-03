@@ -1,4 +1,4 @@
-module github.com/valentinRog/spa-todo
+module github.com/valentinRog/sba-todo
 
 go 1.22.4
 

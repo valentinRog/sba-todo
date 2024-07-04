@@ -46,7 +46,9 @@ func Generate() {
 
 	cmds := []*Cmd{}
 
-	cmds = append(cmds, NewCmd(exec.Command("postcss", filepath.Join(uiPath, "style", "global", "style.css"))))
+	postcss := filepath.Join(uiPath, "node_modules", ".bin", "postcss")
+
+	cmds = append(cmds, NewCmd(exec.Command(postcss, filepath.Join(uiPath, "style", "global", "style.css"))))
 
 	err := filepath.Walk(filepath.Join(uiPath, "templates"), func(path string, info fs.FileInfo, err error) error {
 		if !info.IsDir() && info.Name() == "style.css" {
@@ -58,7 +60,7 @@ func Generate() {
 			_, _ = f.WriteString(fmt.Sprintf("package %s\n\n", filepath.Base(filepath.Dir(path))))
 			_, _ = f.WriteString(fmt.Sprintf("const id = \"%s\"\n", idString))
 
-			cmd := exec.Command("postcss", path)
+			cmd := exec.Command(postcss, path)
 			cmd.Env = append(os.Environ(), fmt.Sprintf("PREFIX=%s", idString))
 			fmt.Println(idString)
 			cmds = append(cmds, NewCmd(cmd))

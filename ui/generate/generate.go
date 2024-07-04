@@ -9,7 +9,6 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-
 	"github.com/valentinRog/sba-todo/utils"
 )
 
@@ -34,7 +33,6 @@ func (c *Cmd) Start() error {
 
 func (c *Cmd) Wait() string {
 	err := c.cmd.Wait()
-	fmt.Println(c.cmd.Args)
 	if err != nil {
 		log.Fatal(c.stderr.String())
 	}
@@ -62,7 +60,6 @@ func Generate() {
 
 			cmd := exec.Command(postcss, path)
 			cmd.Env = append(os.Environ(), fmt.Sprintf("PREFIX=%s", idString))
-			fmt.Println(idString)
 			cmds = append(cmds, NewCmd(cmd))
 		}
 		return nil
@@ -86,7 +83,10 @@ func Generate() {
 	writer := bufio.NewWriter(file)
 
 	for _, cmd := range cmds {
-		writer.WriteString(cmd.Wait())
+		fmt.Println(cmd.cmd.Args)
+		out := cmd.Wait()
+		fmt.Println(out)
+		writer.WriteString(out)
 	}
 
 	err = writer.Flush()

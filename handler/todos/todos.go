@@ -10,6 +10,9 @@ import (
 )
 
 func GetTodos(c echo.Context) error {
+	if c.Request().Header.Get("HX-Request") == "true" {
+		return todos.Todos().Render(c.Response())
+	}
 	return layout.Layout(todos.Todos()).Render(c.Response())
 }
 

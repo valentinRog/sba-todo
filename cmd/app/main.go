@@ -17,8 +17,8 @@ func main() {
 	e.GET("/", todos.GetTodos)
 	e.POST("/add-todo", todos.PostAddTodo)
 	e.POST("/delete-todo/:id", todos.PostDeleteTodo)
-	e.GET("/style", static.HandleStyle)
-	e.GET("/htmx", static.HandleHtmx)
+	e.GET("/style", static.GetStyle)
+	e.GET("/htmx", static.GetHtmx)
 	e.GET("/login", login.GetLogin)
 
 	e.Logger.Fatal(e.Start(":80"))

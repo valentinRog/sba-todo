@@ -5,7 +5,6 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/valentinRog/sba-todo/handler"
-	"github.com/valentinRog/sba-todo/handler/static"
 	"github.com/valentinRog/sba-todo/store"
 )
 
@@ -20,8 +19,8 @@ func main() {
 	e.GET("/", handlers.Todos.GetTodos)
 	e.POST("/add-todo", handlers.Todos.PostAddTodo)
 	e.POST("/delete-todo/:id", handlers.Todos.PostDeleteTodo)
-	e.GET("/style", static.GetStyle)
-	e.GET("/htmx", static.GetHtmx)
+	e.GET("/style", handlers.Static.GetStyle)
+	e.GET("/htmx", handlers.Static.GetHtmx)
 	e.GET("/login", handlers.Login.GetLogin)
 	e.POST("/signup", handlers.Login.PostSignup)
 

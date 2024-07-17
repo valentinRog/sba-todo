@@ -8,6 +8,8 @@ import (
 	_ "embed"
 )
 
+type Login struct{}
+
 var (
 	H1     = utils.AddClass(id, h.H1)
 	Div    = utils.AddClass(id, h.Div)
@@ -29,7 +31,7 @@ func signinForm() g.Node {
 	return Form()
 }
 
-func LoginPage() g.Node {
+func (Login) LoginPage() g.Node {
 	return Div(
 		H1(g.Text("Page de login")),
 		signupForm(),

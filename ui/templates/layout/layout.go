@@ -9,6 +9,8 @@ import (
 	_ "embed"
 )
 
+type Layout struct{}
+
 var (
 	H1  = utils.AddClass(id, h.H1)
 	Ul  = utils.AddClass(id, h.Ul)
@@ -17,7 +19,7 @@ var (
 	Div = utils.AddClass(id, h.Div)
 )
 
-func Layout(children ...g.Node) g.Node {
+func (l Layout) Layout(children ...g.Node) g.Node {
 	return c.HTML5(c.HTML5Props{
 		Title: "ma page",
 		Head: []g.Node{

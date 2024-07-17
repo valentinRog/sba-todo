@@ -1,7 +1,11 @@
 package main
 
-import "github.com/valentinRog/sba-todo/ui/generate"
+import (
+	store "github.com/valentinRog/sba-todo/store/generate"
+	ui "github.com/valentinRog/sba-todo/ui/generate"
+)
 
 func main() {
-	generate.Generate()
+	ui.Generate()
+	store.Generate()
 }

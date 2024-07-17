@@ -2,6 +2,6 @@
 @import "vars.css";
 
 h1 {
-  background-color: red;
+  background-color: rgb(157, 255, 0);
   @mixin font-size $size;
 }

@@ -29,13 +29,12 @@ func addTodoForm() g.Node {
 	)
 }
 
-func TodoList() g.Node {
-	todos := todo.GetTodos()
+func TodoList(todos []todo.Todo) g.Node {
 	return Ul(h.ID("todo-list"),
 		g.Group(g.Map(todos, func(todo todo.Todo) g.Node {
 			return Li(g.Text(todo.Name),
 				Button(
-					g.Attr("hx-post", fmt.Sprintf("/delete-todo/%d", todo.Id)),
+					g.Attr("hx-post", fmt.Sprintf("/delete-todo/%d", todo.ID)),
 					g.Attr("hx-target", "#todo-list"),
 					g.Attr("hx-swap", "outerHTML"),
 					g.Text("delete"),
@@ -43,6 +42,6 @@ func TodoList() g.Node {
 		})))
 }
 
-func Todos() g.Node {
-	return Div(TodoList(), addTodoForm())
+func Todos(todos []todo.Todo) g.Node {
+	return Div(TodoList(todos), addTodoForm())
 }

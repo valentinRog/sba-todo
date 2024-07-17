@@ -6,11 +6,23 @@ import (
 	"log"
 
 	_ "embed"
+
+	"github.com/valentinRog/sba-todo/store/todo"
+	"github.com/valentinRog/sba-todo/store/user"
 	_ "modernc.org/sqlite"
 )
 
-//go:embed todo/schema.sql
-var ddl string
+type Queries struct {
+	User *user.Queries
+	Todo *todo.Queries
+}
+
+func NewQueries(db *sql.DB) *Queries {
+	return &Queries{
+		User: user.New(db),
+		Todo: todo.New(db),
+	}
+}
 
 func Init(ctx context.Context) *sql.DB {
 	db, err := sql.Open("sqlite", ":memory:")
@@ -18,9 +30,8 @@ func Init(ctx context.Context) *sql.DB {
 		log.Fatal(err)
 	}
 
-	if _, err := db.ExecContext(ctx, ddl); err != nil {
-		log.Fatal(err)
-	}
+	user.Init(ctx, db)
+	todo.Init(ctx, db)
 
 	return db
 }

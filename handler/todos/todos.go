@@ -2,7 +2,6 @@ package todos
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"strconv"
 

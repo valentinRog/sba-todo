@@ -22,6 +22,8 @@ func main() {
 	e.GET("/style", handlers.Static.GetStyle)
 	e.GET("/htmx", handlers.Static.GetHtmx)
 	e.GET("/login", handlers.Login.GetLogin)
+	e.GET("/login/signin-form", handlers.Login.GetSigninForm)
+	e.GET("/login/signup-form", handlers.Login.GetSignupForm)
 	e.POST("/signup", handlers.Login.PostSignup)
 
 	e.Logger.Fatal(e.Start(":80"))

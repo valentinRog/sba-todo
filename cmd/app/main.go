@@ -2,19 +2,12 @@ package main
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/labstack/echo/v4"
 	"github.com/valentinRog/sba-todo/handler"
+	"github.com/valentinRog/sba-todo/middleware"
 	"github.com/valentinRog/sba-todo/store"
 )
-
-func mw(next echo.HandlerFunc) echo.HandlerFunc {
-	return func(c echo.Context) error {
-		fmt.Println("hello je suis le mw")
-		return next(c)
-	}
-}
 
 func main() {
 	ctx := context.Background()
@@ -22,9 +15,10 @@ func main() {
 	db := store.Init(ctx)
 	queries := store.NewQueries(db)
 	handlers := handler.New(ctx, queries)
+	mw := middleware.New(ctx, handlers, queries)
 
 	e := echo.New()
-	e.Use(mw)
+	e.Use(mw.Auth.AuthMiddleware)
 
 	{
 		g := e.Group("/login")
@@ -32,13 +26,18 @@ func main() {
 		g.GET("/signin-form", handlers.Login.GetSigninForm)
 		g.GET("/signup-form", handlers.Login.GetSignupForm)
 	}
-
+	{
+		g := e.Group("/auth")
+		g.POST("/signup", handlers.Auth.PostSignup)
+	}
+	{
+		g := e.Group("/static")
+		g.GET("/style", handlers.Static.GetCSS)
+		g.GET("/htmx", handlers.Static.GetHtmx)
+	}
 	e.GET("/", handlers.Todos.GetTodos)
 	e.POST("/add-todo", handlers.Todos.PostAddTodo)
 	e.POST("/delete-todo/:id", handlers.Todos.PostDeleteTodo)
-	e.GET("/style", handlers.Static.GetStyle)
-	e.GET("/htmx", handlers.Static.GetHtmx)
-	e.POST("/signup", handlers.Auth.PostSignup)
 
 	e.Logger.Fatal(e.Start(":80"))
 }

@@ -21,7 +21,7 @@ func SigninForm() g.Node {
 	return div(
 		h.ID("signin-form"),
 		form(
-			g.Attr("hx-post", "/signin"),
+			g.Attr("hx-post", "/auth/signin"),
 			g.Attr("hx-target", "#content-div"),
 			g.Attr("hx-swap", "outerHTML"),
 			input(h.Type("text"), h.Name("username")),
@@ -40,7 +40,7 @@ func SignupForm() g.Node {
 	return div(
 		h.ID("signup-form"),
 		form(
-			g.Attr("hx-post", "/signup"),
+			g.Attr("hx-post", "/auth/signup"),
 			g.Attr("hx-target", "#content-div"),
 			g.Attr("hx-swap", "innerHTML"),
 			input(h.Type("text"), h.Name("username")),

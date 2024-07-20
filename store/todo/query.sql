@@ -6,12 +6,14 @@ WHERE id = ? LIMIT 1;
 SELECT * FROM todos
 ORDER BY name;
 
--- name: CreateTodo :exec
+-- name: CreateTodo :one
 INSERT INTO todos (
   name
 ) VALUES (
   ?
-);
+)
+RETURNING id;
+;
 
 -- name: DeleteTodo :exec
 DELETE FROM todos

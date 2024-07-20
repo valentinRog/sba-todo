@@ -2,12 +2,12 @@
 SELECT * FROM users
 WHERE id = ? LIMIT 1;
 
--- name: CreateUser :exec
+-- name: CreateUser :one
 INSERT INTO users (
-  username
+  username, password
 ) VALUES (
-  ?
-);
+  ?, ?
+) RETURNING id;
 
 -- name: DeleteUser :exec
 DELETE FROM users

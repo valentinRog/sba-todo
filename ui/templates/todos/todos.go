@@ -9,8 +9,6 @@ import (
 	"github.com/valentinRog/sba-todo/ui/utils"
 )
 
-type Todos struct{}
-
 var (
 	Ul     = utils.AddClass(id, h.Ul)
 	Div    = utils.AddClass(id, h.Div)
@@ -31,7 +29,7 @@ func addTodoForm() g.Node {
 	)
 }
 
-func (t Todos) TodoList(todos []todo.Todo) g.Node {
+func TodoList(todos []todo.Todo) g.Node {
 	return Ul(h.ID("todo-list"),
 		g.Group(g.Map(todos, func(todo todo.Todo) g.Node {
 			return Li(g.Text(todo.Name),
@@ -44,6 +42,6 @@ func (t Todos) TodoList(todos []todo.Todo) g.Node {
 		})))
 }
 
-func (t Todos) Todos(todos []todo.Todo) g.Node {
-	return Div(t.TodoList(todos), addTodoForm())
+func Todos(todos []todo.Todo) g.Node {
+	return Div(TodoList(todos), addTodoForm())
 }

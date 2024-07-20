@@ -8,27 +8,25 @@ import (
 	_ "embed"
 )
 
-type Login struct{}
-
 var (
-	H1     = utils.AddClass(id, h.H1)
-	Div    = utils.AddClass(id, h.Div)
-	Form   = utils.AddClass(id, h.Form)
-	Input  = utils.AddClass(id, h.Input)
-	Button = utils.AddClass(id, h.Button)
+	h1     = utils.AddClass(id, h.H1)
+	div    = utils.AddClass(id, h.Div)
+	form   = utils.AddClass(id, h.Form)
+	input  = utils.AddClass(id, h.Input)
+	button = utils.AddClass(id, h.Button)
 	a      = utils.AddClass(id, h.A)
 )
 
-func (Login) SigninForm() g.Node {
-	return Div(
+func SigninForm() g.Node {
+	return div(
 		h.ID("signin-form"),
-		Form(
+		form(
 			g.Attr("hx-post", "/signin"),
 			g.Attr("hx-target", "#content-div"),
 			g.Attr("hx-swap", "outerHTML"),
-			Input(h.Type("text"), h.Name("username")),
-			Input(h.Type("text"), h.Name("password")),
-			Button(h.Type("submit"), g.Text("signin")),
+			input(h.Type("text"), h.Name("username")),
+			input(h.Type("text"), h.Name("password")),
+			button(h.Type("submit"), g.Text("signin")),
 		),
 		a(
 			g.Text("signup"),
@@ -38,16 +36,16 @@ func (Login) SigninForm() g.Node {
 		),
 	)
 }
-func (Login) SignupForm() g.Node {
-	return Div(
+func SignupForm() g.Node {
+	return div(
 		h.ID("signup-form"),
-		Form(
+		form(
 			g.Attr("hx-post", "/signup"),
 			g.Attr("hx-target", "#content-div"),
 			g.Attr("hx-swap", "innerHTML"),
-			Input(h.Type("text"), h.Name("username")),
-			Input(h.Type("text"), h.Name("password")),
-			Button(h.Type("submit"), g.Text("signup")),
+			input(h.Type("text"), h.Name("username")),
+			input(h.Type("text"), h.Name("password")),
+			button(h.Type("submit"), g.Text("signup")),
 		),
 		a(
 			g.Text("signin"),
@@ -58,9 +56,9 @@ func (Login) SignupForm() g.Node {
 	)
 }
 
-func (l Login) LoginPage() g.Node {
-	return Div(
-		H1(g.Text("Page de login")),
-		l.SigninForm(),
+func LoginPage() g.Node {
+	return div(
+		h1(g.Text("Page de login")),
+		SigninForm(),
 	)
 }

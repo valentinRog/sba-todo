@@ -10,12 +10,12 @@ import (
 )
 
 var (
-	Ul     = utils.AddClass(id, h.Ul)
-	Div    = utils.AddClass(id, h.Div)
-	Li     = utils.AddClass(id, h.Li)
-	Form   = utils.AddClass(id, h.Form)
-	Input  = utils.AddClass(id, h.Input)
-	Button = utils.AddClass(id, h.Button)
+	Ul     = utils.AddClass(Id, h.Ul)
+	Div    = utils.AddClass(Id, h.Div)
+	Li     = utils.AddClass(Id, h.Li)
+	Form   = utils.AddClass(Id, h.Form)
+	Input  = utils.AddClass(Id, h.Input)
+	Button = utils.AddClass(Id, h.Button)
 )
 
 func addTodoForm() g.Node {

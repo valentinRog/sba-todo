@@ -3,13 +3,13 @@ package auth
 import (
 	"context"
 	"fmt"
+	"net/http"
 	"strings"
 
 	"github.com/labstack/echo/v4"
 	"github.com/valentinRog/sba-todo/handler"
 	"github.com/valentinRog/sba-todo/store"
-	"github.com/valentinRog/sba-todo/ui/templates/layout"
-	logintmpl "github.com/valentinRog/sba-todo/ui/templates/login"
+	// logintmpl "github.com/valentinRog/sba-todo/ui/templates/login"
 )
 
 type Middleware struct {
@@ -30,19 +30,23 @@ func (m *Middleware) AuthMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		cookie, _ := c.Request().Cookie("token")
 		fmt.Println(c.Path())
+		fmt.Println(c.Request().Header.Get("component-id"))
 		if strings.HasPrefix(c.Path(), "/static") {
 			return next(c)
 		}
 		if cookie == nil && !strings.HasPrefix(c.Path(), "/login") && !strings.HasPrefix(c.Path(), "/auth") {
-			c.Response().Header().Set("HX-Push-Url", "/login")
-			if c.Request().Header.Get("HX-Request") == "true" {
-				return logintmpl.LoginPage().Render(c.Response())
-			}
-			return layout.Layout(logintmpl.LoginPage()).Render(c.Response())
+			// c.Response().Header().Set("HX-Push-Url", "/login")
+			// if c.Request().Header.Get("HX-Request") == "true" {
+			// 	return logintmpl.LoginPage().Render(c.Response())
+			// }
+			return c.Redirect(http.StatusMovedPermanently, "/login")
 		}
 		if cookie != nil && strings.HasPrefix(c.Path(), "/login") {
-			c.Response().Header().Set("HX-Push-Url", "/")
-			return m.h.Todos.GetTodos(c)
+			// c.Response().Header().Set("HX-Push-Url", "/")
+			// if c.Request().Header.Get("HX-Request") == "true" {
+			// 	return m.h.Todos.GetTodos(c)
+			// }
+			return c.Redirect(http.StatusMovedPermanently, "/")
 		}
 		return next(c)
 	}

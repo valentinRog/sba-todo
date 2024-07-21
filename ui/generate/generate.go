@@ -56,7 +56,7 @@ func Generate() {
 			f, _ := os.Create(filepath.Join(filepath.Dir(path), "generated_id.go"))
 			defer f.Close()
 			_, _ = f.WriteString(fmt.Sprintf("package %s\n\n", filepath.Base(filepath.Dir(path))))
-			_, _ = f.WriteString(fmt.Sprintf("const id = \"%s\"\n", idString))
+			_, _ = f.WriteString(fmt.Sprintf("const Id = \"%s\"\n", idString))
 
 			cmd := exec.Command(postcss, path)
 			cmd.Env = append(os.Environ(), fmt.Sprintf("PREFIX=%s", idString))

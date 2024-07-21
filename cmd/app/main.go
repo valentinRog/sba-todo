@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-
 	"github.com/labstack/echo/v4"
 	"github.com/valentinRog/sba-todo/handler"
 	"github.com/valentinRog/sba-todo/middleware"
@@ -23,6 +22,7 @@ func main() {
 	{
 		g := e.Group("/login")
 		g.GET("", handlers.Login.GetLogin)
+		g.GET("-content", handlers.Login.GetLoginContent)
 		g.GET("/signin-form", handlers.Login.GetSigninForm)
 		g.GET("/signup-form", handlers.Login.GetSignupForm)
 	}

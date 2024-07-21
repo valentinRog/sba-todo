@@ -22,10 +22,11 @@ func New(ctx context.Context, q *store.Queries) *Handlers {
 }
 
 func (h *Handlers) GetLogin(c echo.Context) error {
-	if c.Request().Header.Get("HX-Request") == "true" {
-		return logintmpl.LoginPage().Render(c.Response())
-	}
 	return layout.Layout(logintmpl.LoginPage()).Render(c.Response())
+}
+
+func (h *Handlers) GetLoginContent(c echo.Context) error {
+	return logintmpl.LoginPage().Render(c.Response())
 }
 
 func (h *Handlers) GetSigninForm(c echo.Context) error {

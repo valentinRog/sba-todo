@@ -9,12 +9,12 @@ import (
 )
 
 var (
-	h1     = utils.AddClass(id, h.H1)
-	div    = utils.AddClass(id, h.Div)
-	form   = utils.AddClass(id, h.Form)
-	input  = utils.AddClass(id, h.Input)
-	button = utils.AddClass(id, h.Button)
-	a      = utils.AddClass(id, h.A)
+	h1     = utils.AddClass(Id, h.H1)
+	div    = utils.AddClass(Id, h.Div)
+	form   = utils.AddClass(Id, h.Form)
+	input  = utils.AddClass(Id, h.Input)
+	button = utils.AddClass(Id, h.Button)
+	a      = utils.AddClass(Id, h.A)
 )
 
 func SigninForm() g.Node {

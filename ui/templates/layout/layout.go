@@ -10,11 +10,11 @@ import (
 )
 
 var (
-	H1  = utils.AddClass(id, h.H1)
-	Ul  = utils.AddClass(id, h.Ul)
-	Li  = utils.AddClass(id, h.Li)
-	A   = utils.AddClass(id, h.A)
-	Div = utils.AddClass(id, h.Div)
+	H1  = utils.AddClass(Id, h.H1)
+	Ul  = utils.AddClass(Id, h.Ul)
+	Li  = utils.AddClass(Id, h.Li)
+	A   = utils.AddClass(Id, h.A)
+	Div = utils.AddClass(Id, h.Div)
 )
 
 func Layout(children ...g.Node) g.Node {
@@ -34,14 +34,16 @@ func Layout(children ...g.Node) g.Node {
 					g.Attr("hx-target", "#content-div"),
 					g.Attr("hx-swap", "innerHTML"),
 					g.Attr("hx-push-url", "true"),
+					utils.HxHeader(Id),
 				)),
 				Li(A(
-					h.Href("/login"),
+					h.Href("/login-content"),
 					g.Text("login"),
-					g.Attr("hx-get", "/login"),
+					g.Attr("hx-get", "/login-content"),
 					g.Attr("hx-target", "#content-div"),
 					g.Attr("hx-swap", "innerHTML"),
-					g.Attr("hx-push-url", "true"),
+					g.Attr("hx-push-url", "/login"),
+					utils.HxHeader(Id),
 				)),
 			),
 			Div(h.ID("content-div"), g.Group(children)),

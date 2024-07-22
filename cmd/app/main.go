@@ -28,6 +28,8 @@ func main() {
 	{
 		g := e.Group("/auth")
 		g.POST("/signup", handlers.Auth.PostSignup)
+		g.POST("/signin", handlers.Auth.PostSignin)
+		g.POST("/logout", handlers.Auth.PostLogout)
 	}
 	{
 		g := e.Group("/static")

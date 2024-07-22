@@ -24,16 +24,27 @@ func New(ctx context.Context, q *store.Queries) *Handlers {
 func (h *Handlers) PostSignup(c echo.Context) error {
 	name := c.FormValue("username")
 	password := c.FormValue("password")
-	userId, _ := h.q.User.CreateUser(h.ctx, userstore.CreateUserParams{Username: name, Password: password})
-	token := auth.CreateSession(userId)
-	cookie := http.Cookie{
-		Name:     "token",
-		Value:    token,
-		Path:     "/",
-		HttpOnly: true,
-		SameSite: http.SameSiteNoneMode,
-		Secure:   true,
-	}
-	c.SetCookie(&cookie)
+	userID, _ := h.q.User.CreateUser(h.ctx, userstore.CreateUserParams{Username: name, Password: password})
+	token := auth.CreateSession(userID)
+	cookie := auth.CreateCookie(token)
+	c.SetCookie(cookie)
 	return c.Redirect(http.StatusMovedPermanently, "/")
+}
+
+func (h *Handlers) PostSignin(c echo.Context) error {
+	name := c.FormValue("username")
+	// password := c.FormValue("password")
+	user, err := h.q.User.GetUserByName(h.ctx, name)
+	if err != nil {
+		return c.Redirect(http.StatusMovedPermanently, "/")
+	}
+	token := auth.CreateSession(user.ID)
+	cookie := auth.CreateCookie(token)
+	c.SetCookie(cookie)
+	return c.Redirect(http.StatusMovedPermanently, "/")
+}
+
+func (h *Handlers) PostLogout(c echo.Context) error {
+	c.SetCookie(auth.DeleteCookie())
+	return c.Redirect(http.StatusMovedPermanently, "/login")
 }

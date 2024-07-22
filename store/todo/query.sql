@@ -4,13 +4,14 @@ WHERE id = ? LIMIT 1;
 
 -- name: ListTodos :many
 SELECT * FROM todos
+WHERE user_id = ?
 ORDER BY name;
 
 -- name: CreateTodo :one
 INSERT INTO todos (
-  name
+  user_id, name
 ) VALUES (
-  ?
+  ?, ?
 )
 RETURNING id;
 ;

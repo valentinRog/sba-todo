@@ -20,7 +20,7 @@ type Handlers struct {
 func New(ctx context.Context, q *store.Queries) *Handlers {
 	return &Handlers{
 		Login: *login.New(ctx, q),
-		Todos: *todos.New(ctx, q.Todo),
+		Todos: *todos.New(ctx, q),
 		Auth:  *auth.New(ctx, q),
 	}
 }

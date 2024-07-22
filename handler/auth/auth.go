@@ -6,7 +6,6 @@ import (
 	"github.com/valentinRog/sba-todo/auth"
 	"github.com/valentinRog/sba-todo/store"
 	userstore "github.com/valentinRog/sba-todo/store/user"
-	todotmpl "github.com/valentinRog/sba-todo/ui/templates/todos"
 	"net/http"
 )
 
@@ -36,6 +35,5 @@ func (h *Handlers) PostSignup(c echo.Context) error {
 		Secure:   true,
 	}
 	c.SetCookie(&cookie)
-	listTodos, _ := h.q.Todo.ListTodos(h.ctx)
-	return todotmpl.Todos(listTodos).Render(c.Response())
+	return c.Redirect(http.StatusMovedPermanently, "/")
 }

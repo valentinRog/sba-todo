@@ -9,7 +9,6 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/valentinRog/sba-todo/handler"
 	"github.com/valentinRog/sba-todo/store"
-	// logintmpl "github.com/valentinRog/sba-todo/ui/templates/login"
 )
 
 type Middleware struct {
@@ -30,24 +29,24 @@ func (m *Middleware) AuthMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		cookie, _ := c.Request().Cookie("token")
 		fmt.Println(c.Path())
-		fmt.Println(c.Request().Header.Get("component-id"))
+
 		if strings.HasPrefix(c.Path(), "/static") {
 			return next(c)
 		}
+
 		if cookie == nil && !strings.HasPrefix(c.Path(), "/login") && !strings.HasPrefix(c.Path(), "/auth") {
-			// c.Response().Header().Set("HX-Push-Url", "/login")
-			// if c.Request().Header.Get("HX-Request") == "true" {
-			// 	return logintmpl.LoginPage().Render(c.Response())
-			// }
-			return c.Redirect(http.StatusMovedPermanently, "/login")
+			c.Response().Header().Set("HX-Redirect", "/login")
+			code := http.StatusMovedPermanently
+			if c.Request().Header.Get("HX-Request") == "true" {
+				code = 200
+			}
+			return c.Redirect(code, "/login")
 		}
+
 		if cookie != nil && strings.HasPrefix(c.Path(), "/login") {
-			// c.Response().Header().Set("HX-Push-Url", "/")
-			// if c.Request().Header.Get("HX-Request") == "true" {
-			// 	return m.h.Todos.GetTodos(c)
-			// }
 			return c.Redirect(http.StatusMovedPermanently, "/")
 		}
+
 		return next(c)
 	}
 }

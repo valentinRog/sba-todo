@@ -7,6 +7,8 @@ import (
 	"github.com/valentinRog/sba-todo/store"
 	"github.com/valentinRog/sba-todo/ui/templates/layout"
 	logintmpl "github.com/valentinRog/sba-todo/ui/templates/login"
+	signintmpl "github.com/valentinRog/sba-todo/ui/templates/login/signin"
+	signuptmpl "github.com/valentinRog/sba-todo/ui/templates/login/signup"
 )
 
 type Handlers struct {
@@ -21,18 +23,15 @@ func New(ctx context.Context, q *store.Queries) *Handlers {
 	}
 }
 
-func (h *Handlers) GetLogin(c echo.Context) error {
-	return layout.Layout(logintmpl.LoginPage()).Render(c.Response())
-}
-
-func (h *Handlers) GetLoginContent(c echo.Context) error {
-	return logintmpl.LoginPage().Render(c.Response())
-}
-
 func (h *Handlers) GetSigninForm(c echo.Context) error {
-	return logintmpl.SigninForm().Render(c.Response())
+	return signintmpl.SigninForm().Render(c.Response())
 }
 
 func (h *Handlers) GetSignupForm(c echo.Context) error {
-	return logintmpl.SignupForm().Render(c.Response())
+	return signuptmpl.SignupForm().Render(c.Response())
+}
+
+func (h *Handlers) GetLogin(c echo.Context) error {
+	return layout.Layout(logintmpl.LoginPage(signintmpl.SigninForm())).
+		Render(c.Response())
 }
